@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="dist" name="RubicksCube">
+	<property name="DIST_DIR" value="C:\myStuff()\RubicksCube"/>
+    <path id="project.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/jinput.jar"/>
+        <pathelement location="lib/log4j-1.2.8.jar"/>
+        <pathelement location="lib/lwjgl_test.jar"/>
+        <pathelement location="lib/lwjgl_util_applet.jar"/>
+        <pathelement location="lib/lwjgl_util.jar"/>
+        <pathelement location="lib/lwjgl.jar"/>    	
+    </path>
+    <target name="init">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <mkdir dir="bin"/>
+   	</target>
+    <target depends="init" name="build" description="Build the project">
+        <javac destdir="bin">
+            <src path="src"/>
+            <classpath refid="project.classpath"/>
+        </javac>
+    </target>
+	<target name="dist" depends="build" description="Distribute the project to the target location">
+        <mkdir dir="${DIST_DIR}"/>
+        <mkdir dir="${DIST_DIR}/data"/>
+    	<copy todir="${DIST_DIR}/data">
+    		<fileset dir="data"/>
+    	</copy>
+        <mkdir dir="${DIST_DIR}/lib"/>
+    	<copy todir="${DIST_DIR}/lib">
+    		<fileset dir="lib"/>
+    	</copy>
+		<copy todir="${DIST_DIR}">
+			<fileset dir=".">
+				<include name="config.ini" />
+				<include name="lwjgl.dll" />
+			</fileset>				
+		</copy>
+		<jar destfile="${DIST_DIR}\lib\rubickscube.jar" manifest="META-INF/MANIFEST.MF">
+			<fileset dir="bin">
+				<exclude name="test\**"/>
+			</fileset>
+		</jar>
+	</target>	
+</project>
