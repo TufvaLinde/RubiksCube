@@ -1,2 +1,2 @@
-# RubicsCube
-Virtual rubic's cube :)
+# RubiksCube
+Virtual rubik's cube :)
